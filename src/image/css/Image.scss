@@ -1,0 +1,38 @@
+$roundColor: #004C70;
+$controlColor: #006495;
+$controlTextColor: #fff;
+
+.image {
+  height: 300px;
+  width: 100%;
+  font-family: sans-serif;
+
+  #canvas {
+    border: 1px solid yellow;
+  }
+
+  .image-canvas-container {
+    margin: 0 auto;
+    width: 300px;
+    border: 5px solid $roundColor;
+    padding: 80px;
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .controlsContainer {
+    position: absolute;
+    width: 370px;
+    top: 0;
+    right: -310px;
+    color: $controlTextColor;
+
+    .control {
+      border-radius: 50%;
+      background: $controlColor;
+      margin-bottom: 10px;
+      display: inline-block;
+      margin-right: 5px;
+    }
+  }
+}

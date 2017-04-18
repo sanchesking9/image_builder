@@ -1,0 +1,13 @@
+{
+  "title": "Image builder",
+  "controls":[
+    "ColorPicker",
+    "AddText",
+    "AddImage",
+    "AddSquare",
+    "AddCircle",
+    "ChangeColorForSelected",
+    "DeleteSelectedObjects"
+  ],
+  "background": "/public/t-short.png"
+}
