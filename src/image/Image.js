@@ -3,12 +3,12 @@ if (process.env.WEBPACK) { var fabric = require('fabric');}
 if (process.env.WEBPACK) require('./css/Image.scss');
 import ControlContainer from './ControlsContainer';
 import { connect } from 'react-redux';
-import {setConfig} from '../actions/image';
+import {setConfig, setFrame} from '../actions/image';
 
 @connect((state) => {
   const {image} = state;
   return {image};
-}, {setConfig})
+}, {setConfig, setFrame})
 export default class Image extends Component {
   componentDidMount() {
     process.env.WEBPACK && this.initFabric();
@@ -51,7 +51,24 @@ export default class Image extends Component {
   initFabric() {
     const fjs = fabric.fabric;
     const canvas = this.canvasObj = new fjs.Canvas('canvas');
+    var out_frame = new fjs.Rect({
+      width: 160,
+      height: 240,
+      fill: 'rgba(0, 0, 0, 0)',
+      selectable: false,
+      stroke: 'rgba(0,255,0,1)',
+      strokeWidth: 1,
+      evented: false,
+      left: 70,
+      top: 40
+    });
 
+    canvas.add(out_frame);
+    this.props.setFrame(out_frame);
+
+    canvas.on('object:added', function(e) {
+      out_frame.bringToFront();
+    });
     canvas.on('object:moving', (e) => {
       const obj = e.target;
       let angleLeft = 0;

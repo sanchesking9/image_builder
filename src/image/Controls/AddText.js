@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from '../components/button';
+import {clipByName} from '../../Utils';
 
 @connect((state) => {
   const {image} = state;
@@ -8,12 +9,16 @@ import Button from '../components/button';
 })
 export default class AddText extends Component {
   addText = () => {
+    let {frame} = this.props.image;
     const fjs = this.props.fabric;
     const inputText = 'Edit text';
     const text = new fjs.IText(inputText, {
       left: 20, //Take the block's position
       top: 20,
-      fill: this.props.image.color ? this.props.image.color : 'white'
+      fill: this.props.image.color ? this.props.image.color : 'white',
+      clipTo: function(ctx) {
+        return clipByName.bind(text, ctx, frame)();
+      }
     });
     this.props.canvas.add(text).setActiveObject(text);
     text.selectAll();
