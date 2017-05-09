@@ -9,12 +9,13 @@ import {clipByName} from '../../Utils';
 })
 export default class AddText extends Component {
   addText = () => {
-    let {frame} = this.props.image;
+    const {frame = {}} = this.props.image;
+    const {left = 80, top = 80} = frame;
     const fjs = this.props.fabric;
     const inputText = 'Edit text';
     const text = new fjs.IText(inputText, {
-      left: 20, //Take the block's position
-      top: 20,
+      left: left, //Take the block's position
+      top: top,
       fill: this.props.image.color ? this.props.image.color : 'white',
       clipTo: function(ctx) {
         return clipByName.bind(text, ctx, frame)();

@@ -5,3 +5,4 @@ export AddSquare from './AddSquare';
 export AddCircle from './AddCircle';
 export ChangeColorForSelected from './ChangeColorForSelected';
 export DeleteSelectedObjects from './DeleteSelectedObjects';
+export AddSticker from './AddSticker';

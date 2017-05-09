@@ -2,7 +2,7 @@ import {SET_COLOR, SET_CONFIG, SET_FRAME} from '../actions/image';
 
 const initialState = {
   color: '#fff',
-  config: {},
+  config: null,
   frame: {}
 };
 
@@ -13,6 +13,7 @@ export default (state = initialState, action) => {
       return state;
     case SET_CONFIG:
       state.config = action.config;
+      console.log('action.config', action.config);
       return state;
     case SET_FRAME:
       state.frame = action.frame;

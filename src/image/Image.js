@@ -27,7 +27,9 @@ export default class Image extends Component {
       .then((response) => response.json())
       .then((data) => {
         this.setState({config: data});
+        this.props.setConfig({config: data});
         this.addBackground();
+        this.addFrame();
       });
   }
 
@@ -48,23 +50,30 @@ export default class Image extends Component {
     });
   };
 
-  initFabric() {
+  addFrame() {
     const fjs = fabric.fabric;
-    const canvas = this.canvasObj = new fjs.Canvas('canvas');
-    var out_frame = new fjs.Rect({
-      width: 160,
-      height: 240,
+    const canvas = this.canvasObj;
+    const frame = this.state.config.frame;
+    const defaultConfig = {
+      width: 100,
+      height: 100,
       fill: 'rgba(0, 0, 0, 0)',
       selectable: false,
       stroke: 'rgba(0,255,0,1)',
       strokeWidth: 1,
       evented: false,
-      left: 70,
-      top: 40
-    });
+      left: 0,
+      top: 0
+    };
+    var outFrame = new fjs.Rect(frame ? Object.assign(defaultConfig, frame) : defaultConfig);
 
-    canvas.add(out_frame);
-    this.props.setFrame(out_frame);
+    canvas.add(outFrame);
+    this.props.setFrame(outFrame);
+  }
+
+  initFabric() {
+    const fjs = fabric.fabric;
+    const canvas = this.canvasObj = new fjs.Canvas('canvas');
   }
 
   render() {

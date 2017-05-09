@@ -25,10 +25,13 @@ export default class AddImage extends Component {
 
   addImage = (dataURL) => {
     const fjs = this.props.fabric;
-    const {frame} = this.props.image;
+    const {frame = {}} = this.props.image;
+    const {left = 80, top = 80} = frame;
     const img = document.createElement("IMG");
     img.onload = () => {
       var fImg = new fjs.Image(img, {
+        top : top,
+        left : left,
         scaleX: 0.2,
         scaleY: 0.2,
         clipTo: function(ctx) {

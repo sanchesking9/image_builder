@@ -9,13 +9,15 @@ import {clipByName} from '../../Utils';
 })
 export default class AddCircle extends Component {
   addCircle = () => {
-    let {frame} = this.props.image;
+    let {frame = {}} = this.props.image;
+    const {left = 80, top = 80} = frame;
+    const rad = 20;
 
     const fjs = this.props.fabric;
     const circle = new fjs.Circle({
-      radius: 20,
-      left: 100,
-      top: 100,
+      radius: rad,
+      left: left + rad,
+      top: top + rad,
       hasBorders: false,
       originX: "center",
       originY: "center",

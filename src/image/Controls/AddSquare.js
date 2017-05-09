@@ -10,10 +10,11 @@ import Button from '../components/button';
 export default class AddSquare extends Component {
   addSquare = () => {
     const fjs = this.props.fabric;
-    let {frame} = this.props.image;
+    const {frame = {}} = this.props.image;
+    const {left = 80, top = 80} = frame;
     const rect = new fjs.Rect({
-      top : 100,
-      left : 100,
+      top : top,
+      left : left,
       width : 100,
       height : 100,
       fill : this.props.image.color,
