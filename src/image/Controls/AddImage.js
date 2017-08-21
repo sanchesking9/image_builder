@@ -46,7 +46,7 @@ export default class AddImage extends Component {
   render() {
     return (<div className="add-image">
       <Button>Add image</Button>
-      <input ref="file" type="file" ref="file" onChange={(event)=>this._handleImageChange(event)} />
+      <input type="file" ref="file" onChange={(event)=>this._handleImageChange(event)} />
     </div>);
   }
 }

@@ -25,6 +25,16 @@
     "/public/stickers_pack/st11.png"
   ],
   "background": "/public/t-short.png",
+  "sidesBackground": [
+    {
+      "side": "front",
+      "background": "/public/t-short.png"
+    },
+    {
+      "side": "back",
+      "background": "/public/t-short-back.png"
+    }
+  ],
   "frame": {
     "left": 70,
     "top": 40,

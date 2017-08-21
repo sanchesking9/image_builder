@@ -4,6 +4,7 @@ if (process.env.WEBPACK) require('./css/Image.scss');
 import ControlContainer from './ControlsContainer';
 import { connect } from 'react-redux';
 import {setConfig, setFrame} from '../actions/image';
+import RotatePreview from './RotatePreview/RotatePreview';
 
 @connect((state) => {
   const {image} = state;
@@ -80,10 +81,14 @@ export default class Image extends Component {
     const {config} = this.state;
     return (<div className="image">
       <h1>{config.title}</h1>
-      <div className="image-canvas-container">
-        <canvas id="canvas" width="300" height="300"></canvas>
-        {process.env.WEBPACK && <ControlContainer config={config} fabric={fabric.fabric} canvas={this.canvasObj}/>}
+      <div className="wrapper">
+        <div className="image-canvas-container">
+          <canvas id="canvas" width="300" height="300"></canvas>
+            {process.env.WEBPACK && <ControlContainer config={config} fabric={fabric.fabric} canvas={this.canvasObj}/>}
+        </div>
+        <RotatePreview config={config} fabric={fabric.fabric} canvas={this.canvasObj}/>
       </div>
+
     </div>);
   }
 }
