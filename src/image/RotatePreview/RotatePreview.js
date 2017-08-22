@@ -12,11 +12,10 @@ export default class RotatePreview extends Component {
         const imgUrl = config.sidesBackground.find(item => item.side === side).background;
 
         if (side !== currentSide) {
-            // canvas.includeDefaultValues = false;
-            // this.setState({
-            //     [currentSide]: canvas.toJSON(),
-            //     currentSide: side,
-            // });
+            this.setState({
+                [currentSide]: canvas.toJSON(),
+                currentSide: side,
+            });
 
             canvas.clear();
 
