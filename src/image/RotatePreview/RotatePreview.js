@@ -6,22 +6,26 @@ export default class RotatePreview extends Component {
     }
 
     changeSide(e) {
-        const {config, fabric, canvas} = this.props;
+        const {config, canvas, makeCanvas} = this.props;
+        const {currentSide} = this.state;
         const side = e.currentTarget.dataset.side;
         const imgUrl = config.sidesBackground.find(item => item.side === side).background;
 
-        fabric.Image.fromURL(imgUrl, (oImg) => {
-            oImg.setWidth(canvas.width);
-            oImg.setHeight(canvas.height);
-            canvas.setBackgroundImage(oImg, canvas.renderAll.bind(canvas), {
-                originX: 'left',
-                originY: 'top',
-                left: 0,
-                top: 0
-            });
+        if (side !== currentSide) {
+            // canvas.includeDefaultValues = false;
+            // this.setState({
+            //     [currentSide]: canvas.toJSON(),
+            //     currentSide: side,
+            // });
 
-            this.setState({currentSide: side});
-        });
+            canvas.clear();
+
+            if (this.state[side]) {
+                canvas.loadFromJSON(this.state[side], canvas.renderAll.bind(canvas));
+            } else {
+                makeCanvas(imgUrl);
+            }
+        }
     }
 
     render() {
@@ -33,7 +37,12 @@ export default class RotatePreview extends Component {
                         return (
                             <li key={index}>
                                 <div className="title">{item.side}</div>
-                                <img className={item.side === this.state.currentSide && 'selected'} data-side={item.side} onClick={this.changeSide.bind(this)} src={item.background} alt=""/>
+                                <img
+                                    className={item.side === this.state.currentSide && 'selected'}
+                                    data-side={item.side}
+                                    onClick={this.changeSide.bind(this)}
+                                    src={item.background} alt=""
+                                />
                             </li>
                         )
                     })}

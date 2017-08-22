@@ -19,8 +19,8 @@ export default class AddCircle extends Component {
       left: left + rad,
       top: top + rad,
       hasBorders: false,
-      originX: "center",
-      originY: "center",
+      originX: 'center',
+      originY: 'center',
       fill: this.props.image.color,
       clipTo: function(ctx) {
         return clipByName.bind(circle, ctx, frame)();
