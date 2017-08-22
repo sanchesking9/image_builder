@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
+@connect((state) => {
+    const {image} = state;
+    return {image};
+})
 export default class RotatePreview extends Component {
     state = {
         currentSide: 'front',
@@ -15,6 +20,7 @@ export default class RotatePreview extends Component {
             this.setState({
                 [currentSide]: [...canvas.getObjects()],
                 currentSide: side,
+                currentImg: imgUrl,
             });
 
             canvas.clear();
@@ -29,6 +35,30 @@ export default class RotatePreview extends Component {
                 addFrame()
             }
         }
+    }
+
+    download() {
+        const {image: {frame}, canvas, addBackground} = this.props;
+
+        frame.set({
+            opacity: 0,
+        })
+
+        if (this.saveCheckbox.checked) {
+            canvas.backgroundImage = null;
+        }
+
+        this.link.href = canvas.toDataURL({format: 'png'});
+
+        if (this.saveCheckbox.checked) {
+            addBackground(this.state.currentImg);
+        }
+
+        frame.set({
+            opacity: 1,
+        })
+
+        canvas.renderAll();
     }
 
     render() {
@@ -50,6 +80,17 @@ export default class RotatePreview extends Component {
                         )
                     })}
                 </ul>
+                <a
+                    className="download-link"
+                    ref={link => this.link = link}
+                    href='#' onClick={this.download.bind(this)}
+                    download='test.png'>
+                    Save
+                </a>
+                <label className="download-checkbox">
+                    Save without background
+                    <input ref={saveCheckbox => this.saveCheckbox = saveCheckbox} type="checkbox"/>
+                </label>
             </div>
         );
     }

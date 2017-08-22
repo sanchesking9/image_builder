@@ -27,7 +27,9 @@ export default class Image extends Component {
     fetch('/image_builder_config.json')
       .then((response) => response.json())
       .then((data) => {
-        this.setState({config: data});
+        this.setState({
+            config: data,
+        });
         this.props.setConfig({config: data});
         this.addBackground();
         this.addFrame();
@@ -39,7 +41,7 @@ export default class Image extends Component {
     const imgUrl = img || this.state.config.background;
     const canvas = this.canvasObj;
 
-      fjs.Image.fromURL(imgUrl, function(oImg) {
+    fjs.Image.fromURL(imgUrl, function(oImg) {
       oImg.setWidth(canvas.width);
       oImg.setHeight(canvas.height);
       canvas.setBackgroundImage(oImg, canvas.renderAll.bind(canvas), {
@@ -66,8 +68,7 @@ export default class Image extends Component {
       left: 0,
       top: 0
     };
-    var outFrame = new fjs.Rect(frame ? Object.assign(defaultConfig, frame) : defaultConfig);
-
+    const outFrame = new fjs.Rect(frame ? Object.assign(defaultConfig, frame) : defaultConfig);
     canvas.add(outFrame);
     this.props.setFrame(outFrame);
   }
