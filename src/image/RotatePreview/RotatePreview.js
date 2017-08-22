@@ -6,23 +6,27 @@ export default class RotatePreview extends Component {
     }
 
     changeSide(e) {
-        const {config, canvas, makeCanvas} = this.props;
+        const {config, canvas, addFrame, addBackground} = this.props;
         const {currentSide} = this.state;
         const side = e.currentTarget.dataset.side;
         const imgUrl = config.sidesBackground.find(item => item.side === side).background;
 
         if (side !== currentSide) {
             this.setState({
-                [currentSide]: canvas.toJSON(),
+                [currentSide]: [...canvas.getObjects()],
                 currentSide: side,
             });
 
             canvas.clear();
 
-            if (this.state[side]) {
-                canvas.loadFromJSON(this.state[side], canvas.renderAll.bind(canvas));
+            if (this.state[side] && this.state[side].length) {
+                addBackground(imgUrl);
+                for (let i = 0; i < this.state[side].length; i+=1) {
+                    canvas.add(this.state[side][i])
+                }
             } else {
-                makeCanvas(imgUrl);
+                addBackground(imgUrl);
+                addFrame()
             }
         }
     }

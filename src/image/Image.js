@@ -34,11 +34,6 @@ export default class Image extends Component {
       });
   }
 
-  makeCanvas(img) {
-    this.addBackground(img);
-    this.addFrame();
-  }
-
   addBackground = (img) => {
     const fjs = fabric.fabric;
     const imgUrl = img || this.state.config.background;
@@ -91,7 +86,14 @@ export default class Image extends Component {
           <canvas id="canvas" width="300" height="300"></canvas>
             {process.env.WEBPACK && <ControlContainer config={config} fabric={fabric.fabric} canvas={this.canvasObj}/>}
         </div>
-        {process.env.WEBPACK && <RotatePreview config={config} makeCanvas={this.makeCanvas.bind(this)} canvas={this.canvasObj}/>}
+        {process.env.WEBPACK &&
+          <RotatePreview
+              config={config}
+              addFrame={this.addFrame.bind(this)}
+              addBackground={this.addBackground.bind(this)}
+              canvas={this.canvasObj}
+          />
+        }
       </div>
 
     </div>);
