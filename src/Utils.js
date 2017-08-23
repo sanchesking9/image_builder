@@ -28,3 +28,15 @@ export function clipByName(ctx, frame) {
     return degrees * (Math.PI / 180);
   }
 }
+
+export function debounce(func, ms) {
+  let timeOutId;
+
+  return function () {
+    clearTimeout(timeOutId);
+
+    timeOutId = setTimeout(() => {
+      func.apply(this, arguments);
+    }, ms);
+  }
+}

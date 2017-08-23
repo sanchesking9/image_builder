@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {clipByName} from '../../Utils';
 import Button from '../components/button';
 if (process.env.WEBPACK) require('./css/AddSticker.scss');
 import ClickOutside from 'react-click-outside';
@@ -24,13 +23,13 @@ export default class AddSticker extends Component {
     const img = document.createElement("IMG");
     this.hide();
     img.onload = () => {
-      var fImg = new fjs.Image(img, {
+      const fImg = new fjs.Image(img, {
         top : top,
         left : left,
         scaleX: 0.5,
         scaleY: 0.5,
         clipTo: function(ctx) {
-          return clipByName.bind(fImg, ctx, frame)();
+          return this._clipByName(ctx, this._frame);
         }
       });
       this.props.canvas.add(fImg);
@@ -45,8 +44,8 @@ export default class AddSticker extends Component {
       <Button onClick={this.showSticker}>Add sticker</Button>
       {this.state.showPopup && <ClickOutside onClickOutside={::this.hide}>
         <div className="sticker-popup">
-          {config.config && config.config.stickers && config.config.stickers.map((item) => {
-            return <div onClick={this.addImage.bind(this, item)}><img src={item} /></div>
+          {config.config && config.config.stickers && config.config.stickers.map((item, index) => {
+            return <div key={index} onClick={this.addImage.bind(this, item)}><img src={item} /></div>
           })}
         </div>
       </ClickOutside>}

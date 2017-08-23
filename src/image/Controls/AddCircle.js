@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from '../components/button';
-import {clipByName} from '../../Utils';
 
 @connect((state) => {
   const {image} = state;
@@ -13,7 +12,9 @@ export default class AddCircle extends Component {
     const {left = 80, top = 80} = frame;
     const rad = 20;
 
+
     const fjs = this.props.fabric;
+
     const circle = new fjs.Circle({
       radius: rad,
       left: left + rad,
@@ -22,8 +23,8 @@ export default class AddCircle extends Component {
       originX: 'center',
       originY: 'center',
       fill: this.props.image.color,
-      clipTo: function(ctx) {
-        return clipByName.bind(circle, ctx, frame)();
+      clipTo: function (ctx) {
+          return this._clipByName(ctx, this._frame);
       }
     });
     this.props.canvas.add(circle);

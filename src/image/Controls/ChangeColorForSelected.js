@@ -12,8 +12,10 @@ export default class ChangeColorForSelected extends Component {
     if(canvas.getActiveGroup()){
       canvas.getActiveGroup().forEachObject((o) => o.set('fill', this.props.image.color));
       canvas.discardActiveGroup().renderAll();
+      canvas.trigger('object:modified');
     } else if (canvas.getActiveObject()) {
       canvas.getActiveObject().set('fill', this.props.image.color);
+      canvas.trigger('object:modified');
       canvas.renderAll();
     }
   };

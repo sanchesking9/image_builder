@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {clipByName} from '../../Utils';
 import Button from '../components/button';
 
 @connect((state) => {
@@ -19,7 +18,7 @@ export default class AddSquare extends Component {
       height : 100,
       fill : this.props.image.color,
       clipTo: function(ctx) {
-        return clipByName.bind(rect, ctx, frame)();
+        return this._clipByName(ctx, this._frame);
       }
     });
     this.props.canvas.add(rect);

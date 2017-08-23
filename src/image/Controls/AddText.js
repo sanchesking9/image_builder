@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from '../components/button';
-import {clipByName} from '../../Utils';
 
 @connect((state) => {
   const {image} = state;
@@ -18,7 +17,7 @@ export default class AddText extends Component {
       top: top,
       fill: this.props.image.color ? this.props.image.color : 'white',
       clipTo: function(ctx) {
-        return clipByName.bind(text, ctx, frame)();
+        return this._clipByName(ctx, this._frame);
       }
     });
     this.props.canvas.add(text).setActiveObject(text);

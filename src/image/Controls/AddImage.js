@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from '../components/button';
-import {clipByName} from '../../Utils';
 if (process.env.WEBPACK) require('./css/AddImage.scss');
 
 @connect((state) => {
@@ -25,17 +24,16 @@ export default class AddImage extends Component {
 
   addImage = (dataURL) => {
     const fjs = this.props.fabric;
-    const {frame = {}} = this.props.image;
-    const {left = 80, top = 80} = frame;
+    const {left = 80, top = 80} = this.props.image.frame;
     const img = document.createElement("IMG");
     img.onload = () => {
-      var fImg = new fjs.Image(img, {
+      const fImg = new fjs.Image(img, {
         top : top,
         left : left,
         scaleX: 0.2,
         scaleY: 0.2,
         clipTo: function(ctx) {
-          return clipByName.bind(fImg, ctx, frame)();
+          return this._clipByName(ctx, this._frame);
         }
       });
       this.props.canvas.add(fImg);
